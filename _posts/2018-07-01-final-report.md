@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 系统分析与设计HW8
+title: 系统分析与设计期末项目总结
 ---
 
 ## 15331405-sasakiyori   Final Report
