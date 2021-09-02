@@ -131,8 +131,8 @@ comments:
     clientSecret: a330da565085986e41120682ed06f995adfbe956 # GitHub Application Client Secret
     repository  : sasakiyori.github.io # GitHub repo
     owner       : sasakiyori # GitHub repo owner
-    admin: 22006360 # GitHub repo owner and collaborators, only these guys can initialize GitHub issues, IT IS A LIST.
-      # - your GitHub Id
+    admin: # GitHub repo owner and collaborators, only these guys can initialize GitHub issues, IT IS A LIST.
+       - sasakiyori
 
   ## Valine
   # please refer to https://valine.js.org/en/ for more info.
