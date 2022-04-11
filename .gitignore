@@ -7,7 +7,7 @@
 # Byte-compiled / optimized / DLL files
 *.manifest
 *.spec
-
+.jekyll-cache
 
 _site/**
 _site
