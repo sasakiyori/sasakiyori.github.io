@@ -47,7 +47,7 @@ key: 2022-10-31-the-usage-of-repository-forked-from-github
    # export GOPRIVATE=github.com/sasakiyori/
    ```
 
-2. 在go.mod中将对应的package进行替换。具体格式含义可参考：https://go.dev/ref/mod#go-mod-file-replace。要注意由于tag是v4开头，因此package中也需要加上v4
+2. 在go.mod中将对应的package进行替换。具体格式含义可参考：<https://go.dev/ref/mod#go-mod-file-replace>。要注意由于tag是v4开头，因此package中也需要加上v4
    ```mod
    require (
        github.com/jackc/pgx/v4 v4.16.1
@@ -59,5 +59,5 @@ key: 2022-10-31-the-usage-of-repository-forked-from-github
    ```
 
 ## 参考
-- https://stackoverflow.com/questions/14323872/using-forked-package-import-in-go
-- https://stackoverflow.com/questions/27500861/whats-the-proper-way-to-go-get-a-private-repository
+   - <https://stackoverflow.com/questions/14323872/using-forked-package-import-in-go>
+   - <https://stackoverflow.com/questions/27500861/whats-the-proper-way-to-go-get-a-private-repository>
