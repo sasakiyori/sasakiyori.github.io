@@ -48,7 +48,7 @@ key: 2022-10-31-the-usage-of-repository-forked-from-github
    ```
 
 2. 在go.mod中将对应的package进行替换。具体格式含义可参考：<https://go.dev/ref/mod#go-mod-file-replace>。要注意由于tag是v4开头，因此package中也需要加上v4
-   ```mod
+   ```go
    require (
        github.com/jackc/pgx/v4 v4.16.1
    )
