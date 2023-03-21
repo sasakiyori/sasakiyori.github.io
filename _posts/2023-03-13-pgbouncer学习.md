@@ -82,6 +82,29 @@ pgbouncer=# show mem;
 db1 = host=localhost port=5432 dbname=postgres user=postgres password=diffpw
 ```
 
+### pgbouncer连接池复用等级
+pgbouncer连接池的复用等级有`SESSION`、`TRANSACTION`、`STATEMENT`。  
+- `SESSION`模式支持postgres所有特性，连接池的连接会被客户端一直占有直到客户端退出
+- `TRANSACTION`模式下，当客户端有请求时，从连接池取出连接提供给客户端执行，执行完成之后放回连接池，不被客户端占有。支持事务，但无法支持一些全局变量的设置
+- `STATEMENT`模式下，功能与`TRANSACTION`模式类似，但是不支持事务，只支持单语句提交
+
+`SESSION`与`TRANSACTION`在postgres上的[特性支持对比](https://www.pgbouncer.org/features.html)：
+
+| Feature                          | Session pooling | Transaction pooling |
+| -------------------------------- | --------------- | ------------------- |
+| Startup parameters               | Yes             | Yes                 |
+| SET/RESET                        | Yes             | Never               |
+| LISTEN/NOTIFY                    | Yes             | Never               |
+| WITHOUT HOLD CURSOR              | Yes             | Yes                 |
+| WITH HOLD CURSOR                 | Yes             | Never               |
+| Protocol-level prepared plans    | Yes             | No                  |
+| PREPARE / DEALLOCATE             | Yes             | Never               |
+| ON COMMIT DROP temp tables       | Yes             | Yes                 |
+| PRESERVE/DELETE ROWS temp tables | Yes             | Never               |
+| Cached plan reset                | Yes             | Yes                 |
+| LOAD statement                   | Yes             | Never               |
+| Session-level advisory locks     | Yes             | Never               |
+
 ## 代码逻辑
 
 ### 一些重要的结构体
