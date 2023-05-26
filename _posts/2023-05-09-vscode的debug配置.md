@@ -188,13 +188,23 @@ key: 2023-05-09-vscode-debug-settings
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug App",
+            "name": "Debug App By lldb",
             "type": "lldb",
             "request": "launch",
             "program": "${workspaceFolder}/AppBin",
             "args": ["-arg", "test", "-v"],
             "cwd": "${workspaceFolder}",
             "preLaunchTask": "build"                    // 在执行launch之前所需要做的任务label
+        },
+        {
+            "name": "Debug App By gdb",
+            "type": "cppdbg",
+            "request": "launch",
+            "MIMode": "gdb",
+            "program": "${workspaceFolder}/AppBin",
+            "args": ["-arg", "test", "-v"],
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "build",                   // 在执行launch之前所需要做的任务label
         }
     ]
 }
