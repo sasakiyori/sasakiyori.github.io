@@ -209,3 +209,97 @@ key: 2023-05-09-vscode-debug-settings
     ]
 }
 ```
+
+## 多服务配置
+
+主要依赖vscode workspace实现：<https://code.visualstudio.com/docs/editor/multi-root-workspaces>  
+例如对于多个golang的repo，能做到检测多个`go.mod`，且不会互相冲突，可以同时启动多个服务  
+
+### workspace创建
+
+- 方法1：在vscode的`资源管理器界面`右键，选择`将文件夹添加到工作区`，选择你想要打开的module即可重复上述过程即可添加多个module到工作区，此时vscode的工作区自动转换为multi-root模式  
+- 方法2：直接创建一个`.code-workspace`后缀的文件，配置文件中的`folders`标签就配置了所有你添加到工作区的module，其中每个文件夹的位置由`path`标签来定义，它是一个相对地址  
+
+### 示例
+
+假设当前的repo分布为：  
+
+```shell
+.
+|-- my.code-workspace
+|-- server1
+|-- server2
+|-- server3
+```
+
+那么对`my.code-workspace`可以进行如下配置：  
+
+```json
+{
+    // repo 与 my.code-workspace 的相对路径
+    "folders": [
+        {"path": "server1"},
+        {"path": "server2"},
+        {"path": "server3"},
+    ],
+    // 一些插件和测试用环境变量的配置
+    "settings": {
+        "liveServer.settings.multiRootWorkspaceName": "pkg",
+        "go.testEnvVars": {
+            "MY_TEST_ENV": "abc"
+        },
+    },
+    "launch": {
+        "version": "0.2.0",
+        // 可以对多个服务进行组合
+        "compounds": [
+            {
+                "name": "组合1",
+                "configurations": ["server1", "server2"],
+                // 关闭时是否全关
+                "stopAll": true,
+            },
+            {
+                "name": "组合2",
+                "configurations": ["server1", "server3"],
+                "stopAll": false,
+            }
+        ],
+        // 每个服务自己的配置
+        "configurations": [
+            {
+                "name": "server1",
+                "type": "go",
+                "request": "launch",
+                "mode": "auto",
+                // 注意这里的启动方式
+                "program": "${workspaceRoot:server1}/main.go",
+                // 服务自己的启动用环境变量
+                "env": {
+                    "MY_SERVER_ENV": "aaa"
+                }
+            },
+            {
+                "name": "server2",
+                "type": "go",
+                "request": "launch",
+                "mode": "auto",
+                "program": "${workspaceRoot:server2}/main.go",
+                "env": {
+                    "MY_SERVER_ENV": "bbb"
+                }
+            },
+            {
+                "name": "server3",
+                "type": "go",
+                "request": "launch",
+                "mode": "auto",
+                "program": "${workspaceRoot:server3}/main.go",
+                "env": {
+                    "MY_SERVER_ENV": "ccc"
+                }
+            }
+        ]
+    }
+}
+```

@@ -55,7 +55,7 @@ make start
 ```
 
 连接方式：  
-${HOME}/.pgrx/12.19/pgrx-install/bin/psql -d postgres -U postgres -p 28812 -h ${HOME}/.pgrx
+`${HOME}/.pgrx/12.19/pgrx-install/bin/psql -d postgres -U postgres -p 28812 -h ${HOME}/.pgrx`
 
 ## 使用方式
 
