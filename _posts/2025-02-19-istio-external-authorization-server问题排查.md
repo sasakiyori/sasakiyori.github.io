@@ -49,7 +49,7 @@ echo '
 ```go
 func (s *extGrpcServer) Check(ctx context.Context, request *authv3.CheckRequest) (*authv3.CheckResponse, error) {
     // ...
-    return &authv3.CheckResponse{
+    response := &authv3.CheckResponse{
         Status: &status.Status{
             Code: httpStatusCodeToGrpcCode(typev3.StatusCode_Unauthorized),
         },
@@ -68,7 +68,10 @@ func (s *extGrpcServer) Check(ctx context.Context, request *authv3.CheckRequest)
             },
         },
     }
-    // ...
+    // 这边不能返回error 否则http code会固定是403
+    // 所有的deny原因服务都是可控的
+    // error message可以在response body中体现
+    return response, nil
 }
 
 func httpStatusCodeToGrpcCode(code typev3.StatusCode) int32 {
