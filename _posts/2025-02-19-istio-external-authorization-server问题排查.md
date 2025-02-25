@@ -1,7 +1,7 @@
 ---
 layout: article
 title: istio external authorization server问题排查
-tags: istio authorization envoy
+tags: k8s kubernetes istio authorization envoy
 key: 2025-02-19-istio-external-authorization-server-debug
 ---
 
