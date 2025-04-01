@@ -71,6 +71,7 @@ def preview(dataset_dir: str, images_dir: str, annotation_file: str, params: dic
         data_dir=dataset_dir,
         images_dir=images_dir,
         json_annotation_file=annotation_file,
+        cache_annotations=False,
         input_dim=parse_tuple(params.get("input_dim")),
         ignore_empty_annotations=params.get("ignore_empty_annotations"),
         with_crowd=params.get("with_crowd"),
